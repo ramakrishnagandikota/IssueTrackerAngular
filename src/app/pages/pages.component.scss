@@ -1,0 +1,19 @@
+.load{
+    height: 100px;
+    width: 100px;
+    margin: auto;
+    text-align: -webkit-center;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    z-index: 10000;
+}
+
+.loading{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #00000085;
+    z-index: 10000;
+    margin: auto;
+}

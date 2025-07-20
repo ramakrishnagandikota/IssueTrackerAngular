@@ -1,0 +1,13 @@
+<div class="loading" *ngIf="loader">
+    <img src="./img/loader.gif" class="load">
+</div>
+<div class="wrapper">
+    <app-sidemenu></app-sidemenu>
+    <div class="main">
+        <app-header></app-header>
+        <main class="content">
+            <router-outlet></router-outlet>
+        </main>
+        <app-footer></app-footer>
+    </div>
+</div>

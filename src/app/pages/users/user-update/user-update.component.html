@@ -1,0 +1,127 @@
+<div class="container-fluid p-0">
+    <h1 class="h3 mb-3"><a routerLink="/pages/users" class="backBtn"><mat-icon>keyboard_backspace</mat-icon></a> Edit
+        User</h1>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <!-- <div class="card-header">
+                    <h5 class="card-title mb-0">Empty card</h5>
+                </div> -->
+                <div class="card-body">
+                    <div class="col-md-12">
+                        <form [formGroup]="userForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mt-3">
+                                        <label>First name<span class="red">*</span></label>
+                                        <input type="text" class="form-control" formControlName="first_name"
+                                            placeholder="Enter first name">
+                                        <div *ngIf="userForm.get('first_name')?.touched && userForm.get('first_name')?.invalid || submitted"
+                                            class="text-danger">
+                                            <div *ngIf="userForm.get('first_name')?.errors?.['required']">First name is
+                                                required.</div>
+                                                <div *ngIf="userForm.get('first_name')?.errors?.['minlength']">
+                                                    First name must be at least {{ userForm.get('first_name')?.errors?.['minlength'].requiredLength }} characters.
+                                                </div>
+                                                <div *ngIf="userForm.get('first_name')?.errors?.['maxlength']">
+                                                    First name must not exceed {{ userForm.get('first_name')?.errors?.['maxlength'].requiredLength }} characters.
+                                                </div>
+                                            <div *ngIf="userForm.get('first_name')?.errors?.['pattern']">Only alphabets
+                                                and single spaces are allowed.</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label>Email<span class="red">*</span></label>
+                                        <input type="text" class="form-control" formControlName="email"
+                                            placeholder="Enter email address">
+                                        <div *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid || submitted"
+                                            class="text-danger">
+                                            <div *ngIf="userForm.get('email')?.errors?.['required']">Email is required.
+                                            </div>
+                                            <div *ngIf="userForm.get('email')?.errors?.['pattern']">Email must end with
+                                                ripplemetering.com.</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group mt-3">
+                                            <label>Address</label>
+                                            <textarea class="form-control" formControlName="address"
+                                                placeholder="Select address"></textarea>
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label>Status<span class="red">*</span></label>
+                                            <select class="form-control" formControlName="status">
+                                                <option [ngValue]="null">Select status</option>
+                                                <option [ngValue]="1" selected>Active</option>
+                                                <option [ngValue]="0">Inactive</option>
+                                            </select>
+                                            <div *ngIf="userForm.get('status')?.touched && userForm.get('status')?.invalid"
+                                                class="text-danger">
+                                                Status is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mt-3">
+                                            <label>Last name<span class="red">*</span></label>
+                                            <input type="text" class="form-control" formControlName="last_name"
+                                                placeholder="Enter last name">
+                                            <div *ngIf="userForm.get('last_name')?.touched && userForm.get('last_name')?.invalid || submitted"
+                                                class="text-danger">
+                                                <div *ngIf="userForm.get('last_name')?.errors?.['required']">Last name
+                                                    is required.</div>
+                                                <div *ngIf="userForm.get('last_name')?.errors?.['minlength']">
+                                                    Last name must be at least {{ userForm.get('last_name')?.errors?.['minlength'].requiredLength }} characters.
+                                                </div>
+                                                <div *ngIf="userForm.get('last_name')?.errors?.['maxlength']">
+                                                    Last name must not exceed {{ userForm.get('last_name')?.errors?.['maxlength'].requiredLength }} characters.
+                                                </div>
+                                                <div *ngIf="userForm.get('last_name')?.errors?.['pattern']">Only
+                                                    alphabets and single spaces are allowed.</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label>Mobile<span class="red">*</span></label>
+                                            <input type="text" class="form-control" formControlName="mobile_number"
+                                                placeholder="Enter mobile number">
+                                            <div *ngIf="userForm.get('mobile_number')?.touched && userForm.get('mobile_number')?.invalid || submitted"
+                                                class="text-danger">
+                                                <div *ngIf="userForm.get('mobile_number')?.errors?.['required']">Mobile
+                                                    number is required.</div>
+                                                <div *ngIf="userForm.get('mobile_number')?.errors?.['pattern']">Mobile
+                                                    number must be exactly 10 digits.</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group mt-3">
+                                            <label>Date of Birth</label>
+                                            <input type="date" class="form-control" formControlName="date_of_birth"
+                                                placeholder="Select date of birth">
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label>Role<span class="red">*</span></label>
+                                            <select class="form-control" formControlName="role_id" >
+                                                <option>Select role</option>
+                                                <option *ngFor="let item of roles" [value]="item.id">{{ item.role_name }}
+                                                </option>
+                                            </select>
+                                            <div *ngIf="userForm.get('role')?.touched && userForm.get('role')?.invalid"
+                                                class="text-danger">
+                                                Role is required.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group mt-5 " style="float: right;">
+                                    <button class="btn btn-primary" (click)="submitForm()">Update User</button> &nbsp;
+                                    <button class="btn btn-danger" routerLink="/pages/users">Cancel</button>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

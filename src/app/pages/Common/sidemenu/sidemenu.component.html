@@ -1,0 +1,46 @@
+<nav id="sidebar" class="sidebar js-sidebar" [ngClass]="{'collapsed': close}">
+    <div class="sidebar-content js-simplebar">
+        <a class="sidebar-brand" href="index.html">
+            <!-- <span class="align-middle">Ripple</span> -->
+            <div class="text-center">
+                <img class="mb-4"
+                    src="https://i0.wp.com/ripplemetering.com/wp-content/uploads/2022/08/Latest-Ripple-Logo-Blue.webp?fit=300%2C105&ssl=1"
+                    alt="" width="120" height="40" />
+            </div>
+        </a>
+
+        <ul class="sidebar-nav">
+            <li class="sidebar-item" routerLinkActive="active" *ngIf="hasAccess('Dashboard')">
+                <a class="sidebar-link" routerLink="/pages/dashboard" >
+                    <img src="./img/icons/house-solid.svg" class="img-icon">&nbsp; <span class="align-middle">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item" *ngIf="hasAccess('Users')" routerLinkActive="active">
+                <a class="sidebar-link" routerLink="/pages/users" >
+                    <img src="./img/icons/user-solid.svg" class="img-icon">&nbsp; <span class="align-middle">Users</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item" routerLinkActive="active" *ngIf="hasAccess('Roles')">
+                <a class="sidebar-link" routerLink="/pages/roles" >
+                    <img src="./img/icons/briefcase-solid.svg" class="img-icon">&nbsp; <span class="align-middle">Roles</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item" routerLinkActive="active" *ngIf="hasAccess('Permissions')">
+                <a class="sidebar-link" routerLink="/pages/permissions" >
+                    <img src="./img/icons/user-lock-solid.svg" class="img-icon">&nbsp; <span class="align-middle">Permissions</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item" routerLinkActive="active" *ngIf="hasAccess('Issues')">
+                <a class="sidebar-link" routerLink="/pages/issues" >
+                    <img src="./img/icons/bug-solid.svg" class="img-icon">&nbsp; <span class="align-middle">Issues</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+</nav>

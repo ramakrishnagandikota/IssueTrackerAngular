@@ -1,0 +1,81 @@
+<div class="container-fluid p-0">
+    <h1 class="h3 mb-3"><a routerLink="/pages/users" class="backBtn"><mat-icon>keyboard_backspace</mat-icon></a> Edit Role</h1>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <!-- <div class="card-header">
+                    <h5 class="card-title mb-0">Empty card</h5>
+                </div> -->
+                <div class="card-body">
+                    <div class="col-md-6">
+                        <form [formGroup]="roleForm">
+                            <div class="form-group">
+                                <label>Role name<span class="red">*</span></label>
+                                <input type="text" class="form-control" formControlName="role_name" placeholder="Enter role name">
+                                <div *ngIf="roleForm.get('role_name')?.touched && roleForm.get('role_name')?.invalid"
+                                    class="text-danger">
+                                    <div *ngIf="roleForm.get('role_name')?.errors?.['required']">Role name is
+                                        required.</div>
+                                        <div *ngIf="roleForm.get('role_name')?.errors?.['minlength']">
+                                            Role name must be at least {{ roleForm.get('role_name')?.errors?.['minlength'].requiredLength }} characters.
+                                        </div>
+                                        <div *ngIf="roleForm.get('role_name')?.errors?.['maxlength']">
+                                            Role name must not exceed {{ roleForm.get('role_name')?.errors?.['maxlength'].requiredLength }} characters.
+                                        </div>
+                                    <div *ngIf="roleForm.get('role_name')?.errors?.['pattern']">Only alphabets
+                                        and single spaces are allowed.</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <label>Description<span class="red">*</span></label>
+                                <textarea class="form-control" formControlName="description" placeholder="Enter description"></textarea>
+                                <div *ngIf="roleForm.get('description')?.touched && roleForm.get('description')?.invalid"
+                                    class="text-danger">
+                                    Description is required.
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <label>Status<span class="red">*</span></label>
+                                <select class="form-control" formControlName="status">
+                                    <option value="">Select status</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                                <div *ngIf="roleForm.get('status')?.touched && roleForm.get('status')?.invalid"
+                                    class="text-danger">
+                                    Status is required.
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <label>Permissions<span class="red">*</span></label>
+                                <ng-multiselect-dropdown
+                                    [placeholder]="'Select permissions'"
+                                    [settings]="dropdownSettings"
+                                    [data]="dropdownList"
+                                    [(ngModel)]="selectedItems"
+                                    (onSelect)="onItemSelect($event)"
+                                    (onSelectAll)="onSelectAll($event)"
+                                    (onDeSelect)="onItemDeSelect($event)"
+                                    [ngModelOptions]="{standalone: true}"
+                                    >
+                                </ng-multiselect-dropdown>
+                                <div *ngIf="selectedItems.length == 0 && submitted"
+                                    class="text-danger">
+                                    Status is required.
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-5 " style="float: right;">
+                                <button class="btn btn-primary" (click)="submitForm()">Update Role</button> &nbsp;
+                                <button class="btn btn-danger" routerLink="/pages/roles">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

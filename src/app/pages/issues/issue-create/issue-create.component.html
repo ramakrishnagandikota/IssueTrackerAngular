@@ -1,0 +1,120 @@
+<div class="container-fluid p-0">
+    <h1 class="h3 mb-3">
+        <a routerLink="/pages/issues" class="backBtn"><mat-icon>keyboard_backspace</mat-icon></a>
+        Create Issue</h1>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <!-- <div class="card-header">
+                    <h5 class="card-title mb-0">Empty card</h5>
+                </div> -->
+                <div class="card-body">
+                    <form [formGroup]="issueForm">
+                        <div class="form-group">
+                            <label>Title<span class="red">*</span></label>
+                            <input type="text" class="form-control" formControlName="title" placeholder="Enter title">
+                            <div *ngIf="issueForm.get('title')?.touched && issueForm.get('title')?.invalid || submitted" class="text-danger mt-1">
+                                <div *ngIf="issueForm.get('title')?.errors?.['required']">
+                                    Title is required.
+                                </div>
+                                <div *ngIf="issueForm.get('title')?.errors?.['pattern']">
+                                    Title must not start or end with a space, and only single spaces are allowed between words.
+                                </div>
+                                <div *ngIf="issueForm.get('title')?.errors?.['minlength']">
+                                    Title must be at least {{ issueForm.get('title')?.errors?.['minlength'].requiredLength }} characters long.
+                                </div>
+                                <div *ngIf="issueForm.get('title')?.errors?.['maxlength']">
+                                    Title must not exceed {{ issueForm.get('title')?.errors?.['maxlength'].requiredLength }} characters.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>Description<span class="red">*</span></label>
+                            <textarea class="form-control" formControlName="description" placeholder="Enter description" rows="5"></textarea>
+                            <div *ngIf="issueForm.get('description')?.touched && issueForm.get('description')?.invalid || submitted" class="text-danger mt-1">
+                                <div *ngIf="issueForm.get('description')?.errors?.['required']">
+                                    Description is required.
+                                </div>
+                                <div *ngIf="issueForm.get('description')?.errors?.['pattern']">
+                                    Description must not start or end with a space, and only single spaces are allowed between words.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Type<span class="red">*</span></label>
+                                    <select class="form-control" formControlName="type">
+                                        <option value="">Select type</option>
+                                        <option *ngFor="let item of type" value="{{ item.id }}">{{ item.type_name }}</option>
+                                    </select>
+                                    <div *ngIf="issueForm.get('type')?.touched && issueForm.get('type')?.invalid || submitted" class="text-danger mt-1">
+                                        <div *ngIf="issueForm.get('type')?.errors?.['required']">
+                                            Type is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="display: none;">
+                                <div class="form-group">
+                                    <label>State<span class="red">*</span></label>
+                                    <select class="form-control" formControlName="state" >
+                                        <option value="">Select state</option>
+                                        <option *ngFor="let item of state" value="{{ item.id }}">{{ item.state_name }}</option>
+                                    </select>
+                                    <div *ngIf="issueForm.get('state')?.touched && issueForm.get('state')?.invalid || submitted" class="text-danger mt-1">
+                                        <div *ngIf="issueForm.get('state')?.errors?.['required']">
+                                            State is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Priority<span class="red">*</span></label>
+                                    <select class="form-control" formControlName="priority">
+                                        <option value="">Select priority</option>
+                                        <option *ngFor="let item of priority" value="{{ item.id }}">{{ item.priority_name }}</option>
+                                    </select>
+                                    <div *ngIf="issueForm.get('priority')?.touched && issueForm.get('priority')?.invalid || submitted" class="text-danger mt-1">
+                                        <div *ngIf="issueForm.get('priority')?.errors?.['required']">
+                                            Priority is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Azure ticket no</label>
+                                    <input class="form-control" formControlName="azure_ticket_no" placeholder="Azure ticket number">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label class="mb-1">Upload files</label>
+                            <ngx-file-drop (onFileDrop)="dropped($event)" >
+                                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector" multiple="true">
+                                <div class="file-drop-box">
+                                    Drag & drop files here or <span class="btn btn-link" (click)="openFileSelector()">browse</span>
+                                </div>
+                                </ng-template>
+                            </ngx-file-drop>
+
+                            <ul>
+                                <li *ngFor="let file of files">{{ file.name }}</li>
+                            </ul>
+                        </div>
+
+                        <div class="form-group mt-3 pull-right">
+                            <button class="btn btn-primary " (click)="createTicket()">Create ticket</button>&nbsp;
+                            <button class="btn btn-danger " routerLink="/pages/issues">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
