@@ -162,8 +162,28 @@
                                 <button class="btn btn-primary pull-right" (click)="uploadImages()">Upload attachments</button>
                             </div>
                         </mat-tab>
-                        <mat-tab label="History"> Content 4 </mat-tab>
-                        <mat-tab label="Discussion" disabled=""> Content 3 </mat-tab>
+                        <mat-tab label="History" >
+                            <ul class="list-group list-group-flush">
+                                <li *ngFor="let log of issueLogs" class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                    <div class="fw-bold text-dark font-13">
+                                        {{ log.log_name }}
+                                    </div>
+                                    <small class="text-muted font-italic">
+                                        {{ log.created_at | date: 'dd MMM YYYY hh:mm a' }}
+                                    </small>
+                                    </div>
+                                    <span *ngIf="isRecent(log.created_at)" class="badge bg-success rounded-pill">New</span>
+                                </li>
+
+                                <li *ngIf="issueLogs.length === 0" class="list-group-item text-center text-muted">
+                                    No logs available.
+                                </li>
+                            </ul>
+                        </mat-tab>
+                        <mat-tab label="Discussion" disabled="">
+                            
+                        </mat-tab>
                     </mat-tab-group>
 
                 </div>
