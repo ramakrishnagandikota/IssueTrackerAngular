@@ -96,6 +96,7 @@ export class IssueCreateComponent implements OnInit {
       });
     }else{
       this.files = []
+      //formData.append('files', new Blob());
     }
     
 

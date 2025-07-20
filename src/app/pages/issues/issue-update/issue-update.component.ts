@@ -38,6 +38,7 @@ export class IssueUpdateComponent implements OnInit {
   //loader: boolean = false;
   searchText: any = '';
   errorMessage: any = ''
+  issueLogs: any = []
 
   constructor(
     private fb: FormBuilder,
@@ -141,6 +142,7 @@ export class IssueUpdateComponent implements OnInit {
           this.dataSource = new MatTableDataSource(res.attachments); // replace the whole source
           this.dataSource.paginator = this.paginator; // re-assign paginator
           this.dataSource.sort = this.sort;
+          this.getAllLogs(res.id)
           this.sharedService.startStopLoader(false);
         },
         error: (err: any) => {
@@ -243,7 +245,12 @@ export class IssueUpdateComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.sharedService.startStopLoader(true);
-        this.apiService.deleteFile(image.id).subscribe({
+        let Data = {
+          id: image.id,
+          user_id: this.sharedService.getUserInfo().id,
+          issue_id: this.issueForm.value.id
+        }
+        this.apiService.deleteFile(Data).subscribe({
           next: (res: any)=>{
             this.sharedService.startStopLoader(false);
             if(res.status == 'Success'){
@@ -363,4 +370,34 @@ export class IssueUpdateComponent implements OnInit {
       }
     });
   }
+
+  getAllLogs(id: any){
+        this.sharedService.startStopLoader(true);
+        this.apiService.getAllIssueLogs(id).subscribe({
+          next: (res: any)=>{
+            this.sharedService.startStopLoader(false);
+            this.issueLogs = res
+          },
+          error: (err: any)=>{
+            this.sharedService.startStopLoader(false);
+            if(err.status == 401){
+              this.sharedService.logout();
+              this.router.navigate(['/'])
+            }
+            console.log('err', err)
+            Swal.fire({
+              title: "Oops!",
+              text: err.error.details.message,
+              icon: "warning"
+            });
+          }
+        })
+      }
+  
+      isRecent(dateStr: string): boolean {
+        const createdAt = new Date(dateStr);
+        const now = new Date();
+        const diffInHours = (now.getTime() - createdAt.getTime()) / (1000 * 60 * 60);
+        return diffInHours <= 24;
+      }
 }

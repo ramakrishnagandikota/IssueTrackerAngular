@@ -116,13 +116,13 @@ export class ApiService {
     });
   }
 
-  deleteFile(id: any){
+  deleteFile(data: any){
     const headers = new HttpHeaders({
       'accept': 'application/json',
       'Authorization': this.getToken() 
     });
 
-    return this.http.get(this.baseUrl+"/api/deleteIssue/"+id,{headers});
+    return this.http.post(this.baseUrl+"/api/deleteIssue",data,{headers});
   }
 
   approveIssue(data: any){
@@ -195,5 +195,14 @@ export class ApiService {
     });
 
     return this.http.post(this.baseUrl+"/api/user/delete",data,{headers});
+  }
+
+  getAllIssueLogs(id: any){
+    const headers = new HttpHeaders({
+      'accept': 'application/json',
+      'Authorization': this.getToken() 
+    });
+
+    return this.http.get(this.baseUrl+"/api/getAllIssueLog/"+id,{headers});
   }
 }

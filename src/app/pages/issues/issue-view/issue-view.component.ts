@@ -53,6 +53,7 @@ export class IssueViewComponent implements OnInit, AfterViewInit{
   updatedBy: any = '';
   status: any;
   errorMessage: any = ""
+  issueLogs: any = []
 
 
   constructor(
@@ -91,6 +92,7 @@ export class IssueViewComponent implements OnInit, AfterViewInit{
         this.type = res.type;
 
         this.getIssueData();
+        
       },
       error: (err: any) => {
         this.sharedService.startStopLoader(false);
@@ -153,7 +155,7 @@ export class IssueViewComponent implements OnInit, AfterViewInit{
           this.updatedOn = res.updated_at
           this.updatedBy = res.updated_by
           this.status = res.status
-
+          this.getAllLogs(res.id)
           console.log('this.type_name', this.type_name)
 
           // this.issueForm.get('id')?.setValue(res.id);
@@ -246,7 +248,12 @@ export class IssueViewComponent implements OnInit, AfterViewInit{
     }).then((result) => {
       if (result.isConfirmed) {
         this.sharedService.startStopLoader(true);
-        this.apiService.deleteFile(image.id).subscribe({
+        let Data = {
+          id: image.id,
+          user_id: this.sharedService.getUserInfo().id,
+          issue_id: this.id
+        }
+        this.apiService.deleteFile(Data).subscribe({
           next: (res: any)=>{
             this.sharedService.startStopLoader(false);
             if(res.status == 'Success'){
@@ -315,11 +322,12 @@ export class IssueViewComponent implements OnInit, AfterViewInit{
     this.sharedService.startStopLoader(true);
     let Data = {
       id: id,
-      state: 'Approved'
+      state: 'Approved',
+      user_id: this.sharedService.getUserInfo().id
     }
     this.apiService.approveIssue(Data).subscribe({
       next: (res: any)=>{
-        this.sharedService.startStopLoader(true);
+        this.sharedService.startStopLoader(false);
         this.getIssueData();
         if(res.status == "Success"){
           Swal.fire({
@@ -336,7 +344,7 @@ export class IssueViewComponent implements OnInit, AfterViewInit{
         }
       },
       error: (err: any)=>{
-        this.sharedService.startStopLoader(true);
+        this.sharedService.startStopLoader(false);
         if(err.status == 401){
           this.sharedService.logout();
           this.router.navigate(['/'])
@@ -355,11 +363,12 @@ export class IssueViewComponent implements OnInit, AfterViewInit{
     this.sharedService.startStopLoader(true);
     let Data = {
       id: id,
-      state: 'Rejected'
+      state: 'Rejected',
+      user_id: this.sharedService.getUserInfo().id
     }
     this.apiService.rejectIssue(Data).subscribe({
       next: (res: any)=>{
-        this.sharedService.startStopLoader(true);
+        this.sharedService.startStopLoader(false);
         this.getIssueData();
         if(res.status == "Success"){
           Swal.fire({
@@ -376,7 +385,7 @@ export class IssueViewComponent implements OnInit, AfterViewInit{
         }
       },
       error: (err: any)=>{
-        this.sharedService.startStopLoader(true);
+        this.sharedService.startStopLoader(false);
         if(err.status == 401){
           this.sharedService.logout();
           this.router.navigate(['/'])
@@ -401,6 +410,7 @@ export class IssueViewComponent implements OnInit, AfterViewInit{
         setTimeout(()=>{ this.errorMessage = ""}, 10000)
         return
       }
+      this.sharedService.startStopLoader(true);
       const formData = new FormData();
       this.files.forEach((file, index) => {
         formData.append('files', file); // backend expects 'files' as the key for multiple
@@ -449,5 +459,35 @@ export class IssueViewComponent implements OnInit, AfterViewInit{
           });
         }
       });
+    }
+
+    getAllLogs(id: any){
+      this.sharedService.startStopLoader(true);
+      this.apiService.getAllIssueLogs(id).subscribe({
+        next: (res: any)=>{
+          this.sharedService.startStopLoader(false);
+          this.issueLogs = res
+        },
+        error: (err: any)=>{
+          this.sharedService.startStopLoader(false);
+          if(err.status == 401){
+            this.sharedService.logout();
+            this.router.navigate(['/'])
+          }
+          console.log('err', err)
+          Swal.fire({
+            title: "Oops!",
+            text: err.error.details.message,
+            icon: "warning"
+          });
+        }
+      })
+    }
+
+    isRecent(dateStr: string): boolean {
+      const createdAt = new Date(dateStr);
+      const now = new Date();
+      const diffInHours = (now.getTime() - createdAt.getTime()) / (1000 * 60 * 60);
+      return diffInHours <= 24;
     }
 }
