@@ -174,6 +174,7 @@ export class IssueUpdateComponent implements OnInit {
   }
 
   createTicket() {
+    this.sharedService.startStopLoader(true);
     const formData = {
       ...this.issueForm.value,
       user_id: this.sharedService.getUserInfo().id  // assuming you have this from auth token
@@ -321,6 +322,7 @@ export class IssueUpdateComponent implements OnInit {
       setTimeout(()=>{ this.errorMessage = ""}, 10000)
       return
     }
+    this.sharedService.startStopLoader(true);
     const formData = new FormData();
     this.files.forEach((file, index) => {
       formData.append('files', file); // backend expects 'files' as the key for multiple
