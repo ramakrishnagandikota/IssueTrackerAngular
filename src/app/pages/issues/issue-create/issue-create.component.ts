@@ -22,6 +22,7 @@ export class IssueCreateComponent implements OnInit {
   fixState: any
   submitted: boolean = false
 
+
   constructor(private fb: FormBuilder, private apiService: ApiService, private sharedService: SharedService, private router: Router) { }
 
   ngOnInit(): void {

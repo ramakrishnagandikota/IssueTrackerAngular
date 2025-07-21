@@ -24,6 +24,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import {MatTabsModule} from '@angular/material/tabs';
 import { FileSizePipe } from '../../Pipes/file-size.pipe';
 import {MatMenuModule} from '@angular/material/menu';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import {MatMenuModule} from '@angular/material/menu';
     NgMultiSelectDropDownModule.forRoot(),
     FontAwesomeModule,
     MatTabsModule,
-    MatMenuModule
+    MatMenuModule,
+    EditorModule
   ],
   exports:[FileSizePipe]
 })
