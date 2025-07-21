@@ -30,7 +30,19 @@
                         </div>
                         <div class="form-group mt-3">
                             <label>Description<span class="red">*</span></label>
-                            <textarea class="form-control" formControlName="description" placeholder="Enter description" rows="5"></textarea>
+                            <!-- <textarea class="form-control" formControlName="description" placeholder="Enter description" rows="5"></textarea> -->
+                             <editor 
+                                apiKey="3srns6cnvjnx4j72hmbha9l849he1bo658rdk1zmws8rtkzo"
+                                cloudChannel="7"
+                                initialValue=""
+                                [inline]="false"
+                                plugins="'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount'"
+                                tagName="div"
+                                toolbar="'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat'"
+                                formControlName="description"
+                                modelEvents="change input nodechange undo redo"
+                            />
+
                             <div *ngIf="issueForm.get('description')?.touched && issueForm.get('description')?.invalid || submitted" class="text-danger mt-1">
                                 <div *ngIf="issueForm.get('description')?.errors?.['required']">
                                     Description is required.

@@ -21,8 +21,19 @@
                                     </div>
                                     <div class="form-group mt-3">
                                         <label>Description</label>
-                                        <textarea class="form-control" formControlName="description"
-                                            placeholder="Enter description" rows="5"></textarea>
+                                        <!-- <textarea class="form-control" formControlName="description"
+                                            placeholder="Enter description" rows="5"></textarea> -->
+                                            <editor 
+                                                apiKey="3srns6cnvjnx4j72hmbha9l849he1bo658rdk1zmws8rtkzo"
+                                                cloudChannel="7"
+                                                initialValue=""
+                                                [inline]="false"
+                                                plugins="'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount'"
+                                                tagName="div"
+                                                toolbar="'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat'"
+                                                formControlName="description"
+                                                modelEvents="change input nodechange undo redo"
+                                            />
                                     </div>
                                     <div class="row mt-3">
                                         <div class="col-md-6">
